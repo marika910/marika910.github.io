@@ -189,8 +189,14 @@ section{ padding:88px 0; border-top:1px solid var(--line); }
 
 /* ---------- 料金・合格実績・おすすめnote・相談の流れ ---------- */
 .price-note{ margin:26px 0 0; font-size:.88rem; line-height:2; background:var(--paper);
-  padding:18px 22px; border-left:2px solid var(--gold); }
-.price-note b{ font-family:var(--en); font-weight:500; }
+  padding:18px 22px 20px; border-left:2px solid var(--gold); }
+.price-note .price-head{ font-family:var(--serif); font-weight:600; letter-spacing:.08em; margin:0 0 8px; }
+.price-note ul{ list-style:none; margin:0; padding:0; }
+.price-note li{ display:flex; align-items:baseline; gap:12px; margin:7px 0; }
+.price-note li .dots{ flex:1; border-bottom:1px dotted var(--ink-soft); opacity:.5; min-width:24px; }
+.price-note li b{ white-space:nowrap; }
+.price-note li b .num{ font-family:var(--en); font-weight:500; }
+.price-note .price-sub{ margin:2px 0 0; font-size:.78rem; color:var(--ink-soft); }
 .pass-record{ margin-top:44px; }
 .pass-record h3{ font-family:var(--serif); font-weight:600; font-size:1.02rem;
   letter-spacing:.06em; margin:0 0 10px; }
@@ -376,7 +382,15 @@ footer.site .wrap{ display:flex; justify-content:space-between; align-items:cent
           <p>お子さんとご家庭に合わせた教育書・児童書の選書サービス。どんなサービスかは<a href="https://note.com/marika910/n/na3e7481e20e5">紹介note</a>をどうぞ。</p>
         </div>
       </div>
-      <p class="price-note">料金は、授業もご相談もすべて共通で <b>50分 6,000円</b>です。2回目以降のカウンセリングには <b>25分 3,000円</b>の枠もご用意しています。教育ブックコンシェルジュのみ、30分のご相談＋本のリサーチで <b>5,000円</b>です。</p>
+      <div class="price-note">
+        <p class="price-head">料金</p>
+        <ul>
+          <li><span>授業・ご相談（すべて共通）</span><span class="dots"></span><b>50分 <span class="num">6,000</span>円</b></li>
+          <li><span>カウンセリング（2回目以降の方）</span><span class="dots"></span><b>25分 <span class="num">3,000</span>円</b></li>
+          <li><span>教育ブックコンシェルジュ</span><span class="dots"></span><b><span class="num">5,000</span>円</b></li>
+        </ul>
+        <p class="price-sub">※ブックコンシェルジュは、30分のご相談＋本のリサーチのセットです。</p>
+      </div>
     </div>
   </div>
 </section>
