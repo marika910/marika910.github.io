@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>理系ワーママまりか｜中学受験×AI×言語化</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;700&family=Space+Grotesk:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* 配色B「白磁×淡彩」: 生成り白の地に墨色、淡彩5色（桜・空・若葉・檸檬・藤）を差し色に。ライト固定 */
+:root{
+  --ink:#26262a; --ink-soft:#73737b; --ground:#faf9f6; --paper:#f1efe9;
+  --accent:#6f74b9; --accent-soft:#e9e8f6; --gold:#c78ba4; --gold-soft:#f7dfe7; --line:#e5e3dc;
+  --p1:#f7dce4; --p2:#d9e8f3; --p3:#ddecd8; --p4:#f6ecce; --p5:#e6e2f4;
+  --serif:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --sans:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","BIZ UDPGothic","Yu Gothic",Meiryo,sans-serif;
+  --en:'Space Grotesk','Zen Kaku Gothic New',sans-serif;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+body{ background:var(--ground); color:var(--ink); font-family:var(--sans);
+  font-size:15.5px; line-height:2.0; letter-spacing:.02em; margin:0;
+  font-feature-settings:"palt"; }
+.wrap{ max-width:900px; margin:0 auto; padding:0 28px; }
+a{ color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .2s; }
+a:hover, a:focus-visible{ border-bottom-color:var(--accent); }
+a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+b{ font-weight:700; }
+
+/* ---------- ヘッダー ---------- */
+header.site{ position:sticky; top:0; z-index:10;
+  background:color-mix(in srgb, var(--ground) 86%, transparent);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line); }
+header.site .wrap{ display:flex; justify-content:space-between; align-items:center;
+  padding-top:16px; padding-bottom:16px; flex-wrap:wrap; gap:8px 16px; }
+.logo{ font-family:var(--serif); font-weight:600; font-size:1.02rem; letter-spacing:.1em; }
+.logo-paw{ font-size:.9em; margin-right:.4em; display:inline-block; transition:transform .25s; }
+.logo:hover .logo-paw{ transform:rotate(-14deg) scale(1.12); }
+nav.top{ display:flex; gap:22px; font-size:.8rem; letter-spacing:.06em; flex-wrap:wrap; }
+nav.top a{ color:var(--ink-soft); }
+nav.top a:hover{ color:var(--accent); }
+
+/* ---------- ヒーロー ---------- */
+.hero{ padding:108px 0 96px; position:relative; overflow:hidden; }
+.hero::before, .hero::after{ content:""; position:absolute; border-radius:50%; pointer-events:none; }
+.hero::before{ width:480px; height:480px; left:-150px; top:-130px;
+  background:radial-gradient(circle, var(--p3) 0%, transparent 68%); }
+.hero::after{ width:420px; height:420px; right:12%; bottom:-170px;
+  background:radial-gradient(circle, var(--p2) 0%, transparent 68%); }
+.hero .wrap{ position:relative; }
+.hex{ position:absolute; pointer-events:none; opacity:.5; }
+.hex svg{ width:100%; height:100%; stroke:var(--accent); fill:none; stroke-width:1.4; }
+.hex.h1 svg{ stroke:#9ec4e0; }
+.hex.h2 svg{ stroke:#e3a8bd; }
+.hex.h3 svg{ stroke:#b7ade0; }
+.hex .node{ fill:var(--gold); stroke:none; opacity:.85; }
+.hex.h1{ width:150px; height:170px; top:-36px; right:5%; }
+.hex.h2{ width:88px; height:100px; bottom:-34px; right:24%; opacity:.4; }
+.hex.h3{ width:64px; height:73px; top:38%; right:-22px; opacity:.4; }
+@media (prefers-reduced-motion: no-preference){
+  .hex{ animation:floaty 16s ease-in-out infinite; }
+  .hex.h2{ animation-duration:21s; animation-delay:-7s; }
+  .hex.h3{ animation-duration:13s; animation-delay:-4s; }
+  @keyframes floaty{ 0%,100%{ transform:translateY(0) rotate(0deg);} 50%{ transform:translateY(-16px) rotate(3deg);} }
+}
+.hero .eyebrow{ margin-bottom:22px; }
+.hero h1{ font-family:var(--serif); font-weight:600;
+  font-size:clamp(1.9rem, 5.4vw, 3.05rem); line-height:1.62; letter-spacing:.06em;
+  margin:0 0 26px; text-wrap:balance; }
+.hero h1 .turn{ color:var(--accent); }
+.hero h1 .hero-sub{ display:inline-block; margin-top:.5em; font-size:.46em; font-weight:400;
+  letter-spacing:.14em; line-height:1.6; color:var(--ink-soft); }
+/* 3つの動詞に淡彩マーカー: 教える=空 / 書く=若葉 / 言語化する=桜 */
+.hero h1 .mk{ white-space:nowrap; padding:0 .05em;
+  background:linear-gradient(transparent 64%, var(--mk-c) 64%, var(--mk-c) 90%, transparent 90%); }
+.hero h1 .mk.sora{ --mk-c:var(--p2); }
+.hero h1 .mk.wakaba{ --mk-c:var(--p3); }
+.hero h1 .mk.sakura{ --mk-c:var(--p1); }
+.hero p.lead{ color:var(--ink-soft); margin:0; max-width:34em; font-size:.98rem; }
+
+/* ---------- 共通: セクション ---------- */
+.eyebrow{ font-family:var(--en); font-size:.68rem; letter-spacing:.3em; text-indent:.3em;
+  color:var(--gold); font-weight:500; margin:0 0 10px; display:flex; align-items:center; gap:14px; }
+.eyebrow::before{ content:""; width:26px; height:1px; background:var(--gold); flex:none; }
+section{ padding:88px 0; border-top:1px solid var(--line); }
+.sec{ display:grid; grid-template-columns:200px minmax(0,1fr); gap:20px 56px; align-items:start; }
+.sec-head h2{ font-family:var(--serif); font-weight:600; font-size:1.42rem;
+  letter-spacing:.1em; line-height:1.7; margin:0; }
+.sec-body{ max-width:620px; }
+.sec-body > :first-child{ margin-top:0; }
+@media (max-width:720px){
+  .hero{ padding:76px 0 64px; }
+  section{ padding:60px 0; }
+  .sec{ grid-template-columns:1fr; gap:26px; }
+}
+
+/* ふわっと出す（各セクション1回だけ） */
+@media (prefers-reduced-motion: no-preference){
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+}
+
+/* ---------- プロフィール ---------- */
+.profile-grid{ display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap; }
+.photo{ flex:0 0 150px; width:150px; height:150px; border-radius:50%; object-fit:cover;
+  object-position:center top; border:3px solid var(--ground); box-shadow:0 0 0 1px var(--line), 4px 4px 0 var(--p2); }
+.profile-body{ flex:1 1 300px; }
+.profile-body p{ margin:0 0 1.1em; }
+.facts{ display:flex; flex-wrap:wrap; gap:8px 10px; padding:0; margin:22px 0 0; list-style:none; font-size:.76rem; letter-spacing:.04em; }
+.facts li{ color:var(--ink); border-radius:999px; padding:4px 16px; }
+.facts li:nth-child(5n+1){ background:var(--p1); }
+.facts li:nth-child(5n+2){ background:var(--p2); }
+.facts li:nth-child(5n+3){ background:var(--p3); }
+.facts li:nth-child(5n+4){ background:var(--p4); }
+.facts li:nth-child(5n+5){ background:var(--p5); }
+
+/* ---------- 著書 ---------- */
+.books{ display:flex; flex-direction:column; }
+.book{ display:flex; gap:24px; align-items:flex-start; padding:24px 0; border-bottom:1px solid var(--line); }
+.book:first-child{ padding-top:0; }
+.book:last-child{ border-bottom:none; padding-bottom:0; }
+.cover{ flex:0 0 86px; width:86px; display:block; border:none; line-height:0;
+  box-shadow:3px 3px 0 var(--p2); transition:transform .2s; }
+.cover:hover{ transform:translateY(-3px); border:none; }
+.cover img{ width:86px; height:auto; display:block; background:var(--paper); }
+/* 画像が取得できなかったときのフォールバック（プレースホルダ表示） */
+.cover.noimg{ height:123px; background:var(--paper); border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center; line-height:1.5; }
+.cover.noimg img{ display:none; }
+.cover.noimg::after{ content:"表紙は\A Amazon で"; white-space:pre; color:var(--ink-soft);
+  font-size:.66rem; text-align:center; }
+.book:nth-child(2) .cover{ box-shadow:3px 3px 0 var(--p1); }
+.book:nth-child(3) .cover{ box-shadow:3px 3px 0 var(--p3); }
+.book:nth-child(4) .cover{ box-shadow:3px 3px 0 var(--p4); }
+.book h3{ font-family:var(--serif); margin:0 0 6px; font-size:1.06rem; font-weight:600; letter-spacing:.05em; }
+.book p{ margin:0 0 8px; font-size:.88rem; color:var(--ink-soft); }
+.book .buy{ font-size:.8rem; letter-spacing:.03em; }
+.author-link{ margin:26px 0 0; font-size:.83rem; }
+
+/* ---------- サービス ---------- */
+.services-lead{ margin:0 0 30px; max-width:36em; }
+.services{ display:grid; grid-template-columns:repeat(auto-fit,minmax(265px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); }
+.service{ background:var(--ground); padding:26px 26px 28px; transition:background .25s; }
+.service:hover{ background:var(--paper); }
+.service h3{ font-family:var(--serif); margin:0 0 10px; font-size:.98rem; font-weight:600;
+  letter-spacing:.05em; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.service p{ margin:0; font-size:.85rem; line-height:1.9; color:var(--ink-soft); }
+.tag{ font-family:var(--sans); font-size:.62rem; letter-spacing:.14em; text-indent:.14em;
+  border:1px solid var(--gold); color:var(--gold); padding:1px 8px; font-weight:700; }
+
+/* ---------- 実績 ---------- */
+.results{ list-style:none; margin:0; padding:0; display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:26px 32px; }
+.results li{ border-top:1px solid var(--line); padding-top:14px; }
+.results b{ font-family:var(--en); font-weight:300; font-size:2.1rem; line-height:1.3;
+  display:block; font-variant-numeric:tabular-nums; letter-spacing:0; }
+.results b .unit{ font-family:var(--serif); font-weight:600; font-size:.95rem; margin-left:3px; color:var(--gold); }
+.results span{ font-size:.8rem; color:var(--ink-soft); letter-spacing:.03em; }
+
+/* ---------- あそび ---------- */
+.quiz{ border:1px solid var(--gold); padding:32px 34px; position:relative; }
+.quiz::before{ content:""; position:absolute; inset:5px; border:1px solid var(--gold-soft); pointer-events:none; }
+.quiz > *{ position:relative; }
+.quiz .q-label{ font-family:var(--serif); font-size:1.3rem; color:var(--gold); font-weight:600; margin:0 0 12px; }
+.quiz p.q-body{ margin:0 0 8px; font-family:var(--serif); font-size:1.16rem; letter-spacing:.04em; line-height:1.9; }
+.quiz p.q-note{ margin:0 0 20px; font-size:.78rem; color:var(--ink-soft); }
+.quiz button{ font:inherit; font-size:.82rem; font-weight:700; letter-spacing:.08em; color:var(--accent);
+  background:none; border:1px solid var(--accent); border-radius:999px; padding:8px 24px; cursor:pointer;
+  transition:background .2s, color .2s; }
+.quiz button:hover{ background:var(--accent); color:var(--ground); }
+.quiz .answer{ display:none; margin:20px 0 0; padding:16px 20px; background:var(--paper); font-size:.9rem; }
+.quiz .answer.open{ display:block; }
+.quiz .answer b{ font-family:var(--serif); font-size:1.12rem; letter-spacing:.04em; }
+
+/* ---------- 発信・お問い合わせ ---------- */
+.links p{ margin:.55em 0; }
+.links p b{ font-family:var(--serif); letter-spacing:.06em; margin-right:.4em; }
+.contact-box{ background:var(--paper); padding:28px 30px; border-top:2px solid var(--accent); }
+.contact-box p{ margin:0 0 .6em; }
+.form-btn{ display:inline-block; margin:14px 0 6px; font-family:var(--sans); font-weight:700;
+  font-size:.9rem; letter-spacing:.08em; color:var(--ground); background:var(--accent);
+  border:1px solid var(--accent); border-radius:999px; padding:13px 34px;
+  transition:background .2s, transform .2s; }
+.form-btn:hover{ background:var(--ink); border-color:var(--ink); transform:translateY(-2px); }
+.note-ph{ font-size:.75rem; color:var(--ink-soft); margin-top:.4em; }
+
+/* ---------- フッター ---------- */
+footer.site{ border-top:1px solid var(--line); margin-top:88px; padding:32px 0 44px;
+  font-size:.74rem; letter-spacing:.05em; color:var(--ink-soft); position:relative; overflow:hidden; }
+footer.site .wrap{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+#paw{ font:inherit; background:none; border:none; cursor:pointer; font-size:1rem; padding:4px 8px; border-radius:6px; }
+#paw:hover{ background:var(--paper); }
+.dog-run{ position:absolute; bottom:6px; left:-60px; font-size:1.4rem; pointer-events:none; opacity:0; }
+@media (prefers-reduced-motion: no-preference){
+  .dog-run.go{ animation:run 3.2s linear forwards; opacity:1; }
+  .dog-run.go.second{ animation-delay:.35s; }
+  @keyframes run{ from{ transform:translateX(0);} to{ transform:translateX(calc(100vw + 120px));} }
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <span class="logo"><span class="logo-paw">🐾</span>理系ワーママまりか</span>
+    <nav class="top">
+      <a href="#profile">プロフィール</a><a href="#books">著書</a><a href="#services">サービス</a><a href="#results">実績</a><a href="#contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hex h1"><svg viewBox="0 0 100 114"><path d="M50 4 L94 30 L94 84 L50 110 L6 84 L6 30 Z"/><path d="M50 22 L78 39 L78 75 L50 92 L22 75 L22 39 Z"/><circle class="node" cx="94" cy="30" r="3.5"/></svg></div>
+  <div class="hex h2"><svg viewBox="0 0 100 114"><path d="M50 4 L94 30 L94 84 L50 110 L6 84 L6 30 Z"/><circle class="node" cx="50" cy="110" r="3.5"/></svg></div>
+  <div class="hex h3"><svg viewBox="0 0 100 114"><path d="M50 4 L94 30 L94 84 L50 110 L6 84 L6 30 Z"/></svg></div>
+  <div class="wrap">
+    <p class="eyebrow">MARIKA — TUTOR / AUTHOR / AI CONSULTANT</p>
+    <h1><span class="mk sora">教える</span>・<span class="mk wakaba">書く</span>・<span class="mk sakura">言語化する</span>。<br><span class="turn">わからないを、ほどく。</span><br><span class="hero-sub">中学受験 × AI × 言語化の、相談室。</span></h1>
+    <p class="lead">中学受験のプロ家庭教師として15年。算数・理科の個別指導から、AI活用・言語化のご相談まで、頭の中を整理するお手伝いをしています。指導・コンサルのご依頼はこのサイトから。</p>
+  </div>
+</div>
+
+<section id="profile">
+  <div class="wrap sec reveal">
+    <div class="sec-head">
+      <p class="eyebrow">PROFILE</p>
+      <h2>プロフィール</h2>
+    </div>
+    <div class="sec-body">
+      <div class="profile-grid">
+        <img class="photo" src="profile.jpg" alt="理系ワーママまりか プロフィールイラスト" width="150" height="150">
+        <div class="profile-body">
+          <p>大学院薬学研究科を修了後、ITスタートアップ企業勤務や中学受験大手塾での講師などを経て中学受験の家庭教師として15年以上、算数を中心に子どもたちと保護者に伴走してきました。現在はフリーランスとして、家庭教師・AI活用コンサル・言語化コンサルを行っています。</p>
+          <p>「難しそう」の入口をほどいて、わかる形に言語化するのが得意です。noteでは2019年から370本以上の記事を執筆。生成AIを相棒にしたKindle出版は4冊になりました。</p>
+          <ul class="facts">
+            <li>中学受験指導 15年</li><li>薬学研究科 修了</li><li>Kindle著書 4冊</li><li>note 370本超</li><li>謎解き・ボードゲーム好き</li><li>柴犬2匹と在宅ワーク</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="books">
+  <div class="wrap sec reveal">
+    <div class="sec-head">
+      <p class="eyebrow">BOOKS</p>
+      <h2>著書</h2>
+    </div>
+    <div class="sec-body">
+      <div class="books">
+        <div class="book">
+          <a class="cover" href="https://www.amazon.co.jp/dp/B0FWHQP6YN"><img src="https://images-na.ssl-images-amazon.com/images/P/B0FWHQP6YN.09.LZZZZZZZ.jpg" alt="『塾に預けて満足してませんか？』表紙" loading="lazy" onerror="this.closest('.cover').classList.add('noimg')"></a>
+          <div>
+            <h3>塾に預けて満足してませんか？</h3>
+            <p>中学受験のリアルと、我が子に合った学びのデザイン。指導15年の視点から、親ができる環境づくりを整理した一冊。</p>
+            <p class="buy"><a href="https://www.amazon.co.jp/dp/B0FWHQP6YN">Amazonで見る →</a>（ペーパーバック版あり）</p>
+          </div>
+        </div>
+        <div class="book">
+          <a class="cover" href="https://www.amazon.co.jp/dp/B0FH2MKSVB"><img src="https://images-na.ssl-images-amazon.com/images/P/B0FH2MKSVB.09.LZZZZZZZ.jpg" alt="『伝わるわたしになる』表紙" loading="lazy" onerror="this.closest('.cover').classList.add('noimg')"></a>
+          <div>
+            <h3>伝わるわたしになる</h3>
+            <p>端的に自分を語る技術。自己紹介が苦手だった私が見つけた、「短く・らしく」伝えるための考え方。</p>
+            <p class="buy"><a href="https://www.amazon.co.jp/dp/B0FH2MKSVB">Amazonで見る →</a></p>
+          </div>
+        </div>
+        <div class="book">
+          <a class="cover" href="https://www.amazon.co.jp/dp/B0H2N84X8M"><img src="https://images-na.ssl-images-amazon.com/images/P/B0H2N84X8M.09.LZZZZZZZ.jpg" alt="『言いたいことが言えるわたしになる』表紙" loading="lazy" onerror="this.closest('.cover').classList.add('noimg')"></a>
+          <div>
+            <h3>言いたいことが言えるわたしになる</h3>
+            <p>あなたへ贈るアサーティブな話し方。『伝わるわたしになる』の続編です。</p>
+            <p class="buy"><a href="https://www.amazon.co.jp/dp/B0H2N84X8M">Amazonで見る →</a></p>
+          </div>
+        </div>
+        <div class="book">
+          <a class="cover" href="https://www.amazon.co.jp/dp/B0FTZXG5FS"><img src="https://images-na.ssl-images-amazon.com/images/P/B0FTZXG5FS.09.LZZZZZZZ.jpg" alt="『生成AIと仲良くなろう』表紙" loading="lazy" onerror="this.closest('.cover').classList.add('noimg')"></a>
+          <div>
+            <h3>生成AIと仲良くなろう</h3>
+            <p>新しいテクノロジーと向き合うための普遍的な考え方。非エンジニアの目線で書いたAIの入口の本。</p>
+            <p class="buy"><a href="https://www.amazon.co.jp/dp/B0FTZXG5FS">Amazonで見る →</a></p>
+          </div>
+        </div>
+      </div>
+      <p class="author-link"><a href="https://www.amazon.co.jp/stores/author/B0FX2P86LZ">Amazon著者ページはこちら →</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap sec reveal">
+    <div class="sec-head">
+      <p class="eyebrow">SERVICES</p>
+      <h2>お仕事のご依頼</h2>
+    </div>
+    <div class="sec-body">
+      <p class="services-lead">入り口はいろいろですが、やっていることの根っこはひとつ。<b>頭の中にあるものを言葉にして、「わからない」をほどくこと</b>です。こんなこと聞いていいのかな？と思うことでもお気軽にご連絡ください。</p>
+      <div class="services">
+        <div class="service">
+          <h3>中学受験 家庭教師</h3>
+          <p>オンライン個別指導。算数を中心に、お子さんの「わかった！」と学習習慣づくりに伴走します。</p>
+        </div>
+        <div class="service">
+          <h3>保護者コーチング</h3>
+          <p>中学受験の親御さん向け。塾選び・家庭学習・成績の見方など、情報の整理と判断のお手伝いをします。</p>
+        </div>
+        <div class="service">
+          <h3>AI活用コーチング</h3>
+          <p>ChatGPTやClaudeを毎日の仕事と暮らしに。非エンジニア目線で、あなたの用途に合わせて伴走します。</p>
+        </div>
+        <div class="service">
+          <h3>話し方・言語化コーチング</h3>
+          <p>「言いたいことがまとまらない」を対話でほどきます。自己紹介・発信・プレゼン・サービス説明の言葉づくりに。</p>
+        </div>
+        <div class="service">
+          <h3>Kindle出版サポート</h3>
+          <p>「喋る→AIと形にする」私自身の4冊の経験をもとに、あなたの知見を本にするまでを伴走します。</p>
+        </div>
+        <div class="service">
+          <h3>教育ブックコンシェルジュ</h3>
+          <p>お子さんとご家庭に合わせた教育書・児童書の選書サービス。<a href="https://note.com/marika910">note</a>にて受付中。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap sec reveal">
+    <div class="sec-head">
+      <p class="eyebrow">TRACK RECORD</p>
+      <h2>実績</h2>
+    </div>
+    <div class="sec-body">
+      <ul class="results">
+        <li><b><span class="count" data-to="15">0</span><span class="unit">年</span></b><span>中学受験の指導歴</span></li>
+        <li><b><span class="count" data-to="4">0</span><span class="unit">冊</span></b><span>Kindle出版（うち3冊は紙版も）</span></li>
+        <li><b><span class="count" data-to="370">0</span><span class="unit">本超</span></b><span>noteでの執筆（2019年〜）</span></li>
+        <li><b><span class="count" data-to="100">0</span><span class="unit">回超</span></b><span>Podcast「たまとまりかの心地よい人生戦略会議」配信</span></li>
+        <li><b><span class="count" data-to="50">0</span><span class="unit">名超</span></b><span>オンラインコミュニティでの講座イベントを複数回主催</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="asobi">
+  <div class="wrap sec reveal">
+    <div class="sec-head">
+      <p class="eyebrow">PLAY</p>
+      <h2>ひとやすみの一問</h2>
+    </div>
+    <div class="sec-body">
+      <div class="quiz">
+        <p class="q-label">Q.</p>
+        <p class="q-body">4 を 4つ と、＋−×÷（　）だけを使って、<b>10</b> をつくれますか？</p>
+        <p class="q-note">中学受験の教え子たちも夢中になる、数字あそびの定番です。</p>
+        <button id="quiz-btn" aria-expanded="false" aria-controls="quiz-ans">答えを見る</button>
+        <div class="answer" id="quiz-ans" role="region">
+          <b>（44 − 4）÷ 4 ＝ 10</b><br>
+          「4つの4」は 0〜9 まで全部つくれます。こういう遊びが大好きな人間が運営しているサイトです。お子さんとぜひ全問制覇を。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="media" class="links">
+  <div class="wrap sec reveal">
+    <div class="sec-head">
+      <p class="eyebrow">WRITING &amp; TALKING</p>
+      <h2>発信しています</h2>
+    </div>
+    <div class="sec-body">
+      <p><b>note</b> — 日々の気づき・中学受験・AI活用：<a href="https://note.com/marika910">note.com/marika910</a></p>
+      <p><b>Podcast</b> — <a href="https://open.spotify.com/show/0YlqvP7ABQ7n25gaFDDrpA">たまとまりかの心地よい人生戦略会議（Spotify）→</a></p>
+      <p><b>読み物（準備中）</b> — 中学受験理科の「なぜ」を、薬学出身の目線で大人にも面白くほどくコーナーをこのサイト内に準備中です。</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap sec reveal">
+    <div class="sec-head">
+      <p class="eyebrow">CONTACT</p>
+      <h2>お問い合わせ</h2>
+    </div>
+    <div class="sec-body">
+      <div class="contact-box">
+        <p>お仕事のご依頼・ご相談は、フォームからお気軽にどうぞ。<br>中学受験の家庭教師から、AI活用・言語化・Kindle出版のご相談まで承っています。</p>
+        <a class="form-btn" href="https://forms.gle/4WEm2e7k68Eob1Jq9" target="_blank" rel="noopener">お問い合わせフォームへ →</a>
+        <p class="note-ph">※フォームが開きます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <span class="dog-run" id="dog1">🐕</span>
+  <span class="dog-run second" id="dog2">🐕</span>
+  <div class="wrap">
+    <span>© 理系ワーママまりか（marika910）</span>
+    <button id="paw" title="……？">🐾</button>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // セクションのフェードイン
+  var reveals = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) {
+    reveals.forEach(function(r){ r.classList.add("in"); });
+  } else {
+    var rio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add("in");
+        rio.unobserve(e.target);
+      });
+    }, { threshold: .12 });
+    reveals.forEach(function(r){ rio.observe(r); });
+  }
+
+  // 実績カウントアップ
+  var counters = document.querySelectorAll(".count");
+  if (reduce || !("IntersectionObserver" in window)) {
+    counters.forEach(function(c){ c.textContent = c.dataset.to; });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        var to = +e.target.dataset.to, t0 = null;
+        function step(t){
+          if (!t0) t0 = t;
+          var p = Math.min((t - t0) / 900, 1);
+          e.target.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: .6 });
+    counters.forEach(function(c){ io.observe(c); });
+  }
+
+  // クイズの答え
+  var btn = document.getElementById("quiz-btn"), ans = document.getElementById("quiz-ans");
+  btn.addEventListener("click", function(){
+    var open = ans.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open);
+    btn.textContent = open ? "答えをかくす" : "答えを見る";
+  });
+
+  // 柴犬2匹（フッターの肉球を押すと走る）
+  var paw = document.getElementById("paw");
+  paw.addEventListener("click", function(){
+    if (reduce) { paw.textContent = paw.textContent === "🐾" ? "🐕🐕" : "🐾"; return; }
+    ["dog1","dog2"].forEach(function(id){
+      var d = document.getElementById(id);
+      d.classList.remove("go"); void d.offsetWidth; d.classList.add("go");
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
